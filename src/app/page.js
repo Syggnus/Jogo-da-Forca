@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { wordlist } from "./components/wordList";
+import { wordlist } from "./components/wordlist";
 import styles from "./page.module.css";
 
 export default function Home() {
