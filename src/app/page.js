@@ -12,9 +12,7 @@ export default function Home() {
   useEffect(() => {
     const wordIndex = Math.floor(Math.random() * wordlist.length);
     setWord(wordlist[wordIndex].palavra);
-  }, [word]);
-
-  useEffect(() => {});
+  }, []);
 
   for (let i = 0; i < word.length; i++) {
     arrayWord.push(word[i]);
