@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
+import Keyboard from "./components/keyboard";
 import { wordlist } from "./components/wordlist";
 import styles from "./page.module.css";
-
 export default function Home() {
   const [word, setWord] = useState("");
   const [letters, setletters] = useState([""]);
-
+  const chosenLetters = ["a", "b"];
   var arrayWord = [];
 
   useEffect(() => {
@@ -33,6 +33,11 @@ export default function Home() {
             );
           })}
         </div>
+        <Keyboard
+          key={2}
+          checkLetterHandle={() => {}}
+          chosenLetters={chosenLetters}
+        />
       </main>
     </>
   );
