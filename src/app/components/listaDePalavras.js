@@ -1,4 +1,4 @@
-export const wordlist = [
+export const listaDePalavras = [
   {
     palavra: "Algoritmo",
     dica: "Conjunto de passos bem definidos para resolver um problema.",

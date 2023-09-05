@@ -1,21 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
-import Keyboard from "./components/keyboard";
-import { wordlist } from "./components/wordlist";
+import { listaDePalavras } from "./components/listaDePalavras";
+import Teclado from "./components/teclado";
 import styles from "./page.module.css";
 export default function Home() {
-  const [word, setWord] = useState("");
-  const [letters, setletters] = useState([""]);
-  const chosenLetters = ["a", "b"];
-  var arrayWord = [];
+  const [palavra, setPalavra] = useState(""); //Palavra da Forca
+  const [letras, setLetras] = useState([""]);
+  const letrasEscolhidas = ["a", "b"]; //Isso vai virar um useState
 
+  // Ao carregar a página é feita a escolha randomica da palavra da forca
   useEffect(() => {
-    const wordIndex = Math.floor(Math.random() * wordlist.length);
-    setWord(wordlist[wordIndex].palavra);
+    const index = Math.floor(Math.random() * listaDePalavras.length);
+    setPalavra(listaDePalavras[index].palavra);
   }, []);
 
-  for (let i = 0; i < word.length; i++) {
-    arrayWord.push(word[i]);
+  // Colocando as letras da palavra em um array para ser exibido posteriormente
+  var letrasDaForca = [];
+  for (let i = 0; i < palavra.length; i++) {
+    letrasDaForca.push(palavra[i]);
   }
 
   return (
@@ -23,18 +25,18 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Jogo da Forca</h1>
         <div className={styles.letterBox}>
-          {arrayWord.map((letter, index) => {
+          {letrasDaForca.map((letra, index) => {
             return (
               <div className={styles.letterSpacing} key={index}>
-                {letters.includes(letter) ? letter : "_"}
+                {letras.includes(letra) ? letra : "_"}
               </div>
             );
           })}
         </div>
-        <Keyboard
+        <Teclado
           key={2}
-          checkLetterHandle={() => {}}
-          chosenLetters={chosenLetters}
+          checarLetrasHandle={() => {}}
+          letrasEscolhidas={letrasEscolhidas}
         />
       </main>
     </>
