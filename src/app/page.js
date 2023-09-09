@@ -4,22 +4,27 @@ import { listaDePalavras } from "./components/listaDePalavras";
 import Teclado from "./components/teclado";
 import styles from "./page.module.css";
 export default function Home() {
-  const [palavra, setPalavra] = useState(""); //Palavra da Forca
+  const [palavra, setPalavra] = useState("");
   const [letras, setLetras] = useState([""]);
-  const letrasEscolhidas = ["a", "b"]; //Isso vai virar um useState
+  const [letrasEscolhidas, setLetrasEscolhidas] = useState([""]);
 
-  // Ao carregar a página é feita a escolha randomica da palavra da forca
   useEffect(() => {
     const index = Math.floor(Math.random() * listaDePalavras.length);
     setPalavra(listaDePalavras[index].palavra);
   }, []);
 
-  // Colocando as letras da palavra em um array para ser exibido posteriormente
   var letrasDaForca = [];
   for (let i = 0; i < palavra.length; i++) {
     letrasDaForca.push(palavra[i]);
   }
 
+  function checkLetrasEscolhidas(letra) {
+    setLetrasEscolhidas((prevLetra) => [...prevLetra, letra]);
+
+    if (letrasDaForca.includes(letra)) {
+      setLetras((prevLetra) => [...prevLetra, letra]);
+    }
+  }
   return (
     <>
       <main className={styles.main}>
@@ -35,7 +40,7 @@ export default function Home() {
         </div>
         <Teclado
           key={2}
-          checarLetrasHandle={() => {}}
+          checarLetrasHandle={checkLetrasEscolhidas}
           letrasEscolhidas={letrasEscolhidas}
         />
       </main>
