@@ -2,7 +2,7 @@ import styles from "../page.module.css";
 import Keys from "./teclas";
 export default function Teclado({ letrasEscolhidas, checarLetrasHandle }) {
   const alfabeto = Array.from({ length: 26 }, (_, i) =>
-    String.fromCharCode(97 + i)
+    String.fromCharCode(97 + i).toUpperCase()
   );
 
   return (
@@ -13,7 +13,7 @@ export default function Teclado({ letrasEscolhidas, checarLetrasHandle }) {
             key={letra}
             letrasEscolhidas={letrasEscolhidas.includes(letra) ? true : false}
             checarLetrasHandle={() => checarLetrasHandle(letra)}
-            teclas={letra.toUpperCase()}
+            teclas={letra}
           />
         );
       })}
