@@ -12,6 +12,7 @@ export default function Home() {
   const [palavra, setPalavra] = useState("");
   const [letras, setLetras] = useState([""]);
   const [letrasEscolhidas, setLetrasEscolhidas] = useState([""]);
+  const [erros, setErros] = useState(9);
 
   useEffect(() => {
     const index = gerarIndiceAleatorio();
@@ -28,6 +29,8 @@ export default function Home() {
 
     if (letrasDaForca.includes(letra)) {
       setLetras((prevLetra) => [...prevLetra, letra]);
+    } else if (erros <= 8) {
+      setErros((prevContador) => prevContador + 1);
     }
   }
   return (
@@ -35,13 +38,19 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Jogo da Forca</h1>
         <div className={styles.letterBox}>
-          {letrasDaForca.map((letra, index) => {
-            return (
-              <div className={styles.letterSpacing} key={index}>
-                {letras.includes(letra) ? letra : "_"}
-              </div>
-            );
-          })}
+          {erros > 8 ? (
+            <>
+              <div>Você Perdeu !</div>
+            </>
+          ) : (
+            letrasDaForca.map((letra, index) => {
+              return (
+                <div className={styles.letterSpacing} key={index}>
+                  {letras.includes(letra) ? letra : "_"}
+                </div>
+              );
+            })
+          )}
         </div>
         <Teclado
           key={2}
