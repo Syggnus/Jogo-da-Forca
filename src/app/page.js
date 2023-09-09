@@ -44,6 +44,9 @@ export default function Home() {
             </>
           ) : (
             letrasDaForca.map((letra, index) => {
+              if (letra == " ") {
+                return <div className={styles.space} key={index}></div>;
+              }
               return (
                 <div className={styles.letterSpacing} key={index}>
                   {letras.includes(letra) ? letra : "_"}
