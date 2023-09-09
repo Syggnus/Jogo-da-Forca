@@ -158,3 +158,34 @@
   color: white;
   font-style: italic;
 }
+
+.lostBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.resetText {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background-color: #72676b;
+  color: white;
+  font-style: italic;
+}
+
+.resetButton {
+  font-size: large;
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background-color: #4c4347;
+}
+
+.resetButton:hover {
+  background-color: #07751f;
+}

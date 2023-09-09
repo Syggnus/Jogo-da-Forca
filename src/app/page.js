@@ -48,8 +48,15 @@ export default function Home() {
         <div className={styles.letterBox}>
           {erros > 8 ? (
             <>
-              <div>Você Perdeu !</div>
-              <button onClick={handleResetarJogo}>Recomeçar</button>
+              <div className={styles.lostBox}>
+                <div className={styles.resetText}>Você Perdeu !</div>
+                <button
+                  className={styles.resetButton}
+                  onClick={handleResetarJogo}
+                >
+                  Recomeçar
+                </button>
+              </div>
             </>
           ) : (
             letrasDaForca.map((letra, index) => {
