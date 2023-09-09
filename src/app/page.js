@@ -33,6 +33,14 @@ export default function Home() {
       setErros((prevContador) => prevContador + 1);
     }
   }
+
+  function handleResetarJogo() {
+    setLetras((prevLetter) => []);
+    setErros((prevCount) => 0);
+    setLetrasEscolhidas((prevLetter) => []);
+    const index = gerarIndiceAleatorio();
+    setPalavra(listaDePalavras[index].palavra.toUpperCase());
+  }
   return (
     <>
       <main className={styles.main}>
@@ -41,6 +49,7 @@ export default function Home() {
           {erros > 8 ? (
             <>
               <div>Você Perdeu !</div>
+              <button onClick={handleResetarJogo}>Recomeçar</button>
             </>
           ) : (
             letrasDaForca.map((letra, index) => {
