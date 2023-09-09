@@ -3,14 +3,19 @@ import { useEffect, useState } from "react";
 import { listaDePalavras } from "./components/listaDePalavras";
 import Teclado from "./components/teclado";
 import styles from "./page.module.css";
+
+function gerarIndiceAleatorio() {
+  return Math.floor(Math.random() * listaDePalavras.length);
+}
+
 export default function Home() {
   const [palavra, setPalavra] = useState("");
   const [letras, setLetras] = useState([""]);
   const [letrasEscolhidas, setLetrasEscolhidas] = useState([""]);
 
   useEffect(() => {
-    const index = Math.floor(Math.random() * listaDePalavras.length);
-    setPalavra(listaDePalavras[index].palavra);
+    const index = gerarIndiceAleatorio();
+    setPalavra(listaDePalavras[index].palavra.toUpperCase());
   }, []);
 
   var letrasDaForca = [];
