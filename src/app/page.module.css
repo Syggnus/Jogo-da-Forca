@@ -40,6 +40,22 @@
   font-size: x-large;
 }
 
+.space {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+  align-items: center;
+  color: white;
+  min-height: 50px;
+  min-width: 50px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 1rem;
+  font-size: x-large;
+}
+
 .keyboard {
   display: grid;
   grid-template-columns: repeat(10, 1fr); /* 10 colunas no teclado */
