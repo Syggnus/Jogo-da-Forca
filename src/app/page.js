@@ -9,19 +9,29 @@ function gerarIndiceAleatorio() {
 }
 
 export default function Home() {
-  const [palavra, setPalavra] = useState("");
+  const [forca, setForca] = useState({ palavra: "", dica: "" });
   const [letras, setLetras] = useState([""]);
   const [letrasEscolhidas, setLetrasEscolhidas] = useState([""]);
-  const [erros, setErros] = useState(9);
+  const [erros, setErros] = useState(0);
+  const [mostrarDica, setMostrarDica] = useState(false);
+  const [venceu, setVenceu] = useState(false);
+
+  function handleNovaForca() {
+    const index = gerarIndiceAleatorio();
+    setForca((forcaAnterior) => ({
+      ...forcaAnterior,
+      palavra: listaDePalavras[index].palavra.toUpperCase(),
+      dica: listaDePalavras[index].dica.toUpperCase(),
+    }));
+  }
 
   useEffect(() => {
-    const index = gerarIndiceAleatorio();
-    setPalavra(listaDePalavras[index].palavra.toUpperCase());
+    handleNovaForca();
   }, []);
 
   var letrasDaForca = [];
-  for (let i = 0; i < palavra.length; i++) {
-    letrasDaForca.push(palavra[i]);
+  for (let i = 0; i < forca.palavra.length; i++) {
+    letrasDaForca.push(forca.palavra[i]);
   }
 
   function checkLetrasEscolhidas(letra) {
@@ -29,6 +39,13 @@ export default function Home() {
 
     if (letrasDaForca.includes(letra)) {
       setLetras((prevLetra) => [...prevLetra, letra]);
+
+      const todasLetrasAdivinhadas = letrasDaForca.every((letraForca) =>
+        letras.includes(letraForca)
+      );
+      if (todasLetrasAdivinhadas) {
+        setVenceu(() => true);
+      }
     } else if (erros <= 8) {
       setErros((prevContador) => prevContador + 1);
     }
@@ -38,18 +55,22 @@ export default function Home() {
     setLetras((prevLetter) => []);
     setErros((prevCount) => 0);
     setLetrasEscolhidas((prevLetter) => []);
-    const index = gerarIndiceAleatorio();
-    setPalavra(listaDePalavras[index].palavra.toUpperCase());
+    handleNovaForca();
   }
+
+  function handleMostrarDica() {
+    setMostrarDica(!mostrarDica);
+  }
+
   return (
     <>
       <main className={styles.main}>
-        <h1 className={styles.title}>Jogo da Forca</h1>
+        <h1 className={styles.title}>Isto Não é um Jogo da Forca</h1>
         <div className={styles.letterBox}>
           {erros > 8 ? (
             <>
               <div className={styles.lostBox}>
-                <div className={styles.resetText}>Você Perdeu !</div>
+                <div className={styles.resetText}>Você Perdeu!</div>
                 <button
                   className={styles.resetButton}
                   onClick={handleResetarJogo}
@@ -58,6 +79,16 @@ export default function Home() {
                 </button>
               </div>
             </>
+          ) : venceu ? (
+            <div className={styles.wonBox}>
+              <div className={styles.resetText}>Você Venceu!</div>
+              <button
+                className={styles.resetButton}
+                onClick={handleResetarJogo}
+              >
+                Recomeçar
+              </button>
+            </div>
           ) : (
             letrasDaForca.map((letra, index) => {
               if (letra == " ") {
@@ -70,6 +101,17 @@ export default function Home() {
               );
             })
           )}
+        </div>
+        <div className={styles.hintBox}>
+          <button
+            onClick={() => handleMostrarDica()}
+            className={styles.hintButton}
+          >
+            Dica
+          </button>
+          <p className={styles.hintText}>
+            {mostrarDica ? forca.dica : "*******"}
+          </p>
         </div>
         <Teclado
           key={2}
